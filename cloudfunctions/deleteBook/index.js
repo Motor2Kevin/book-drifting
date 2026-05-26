@@ -5,7 +5,7 @@ const db = cloud.database()
 // ⚠️ 管理员 openid 白名单。管理员可以删除任何用户发布的书（用于处理违禁内容）。
 // 在小程序「我的 → 个人设置」底部能看到自己的 openid，复制后填到这里。
 const ADMIN_OPENIDS = [
-  // 'oXXXXX...' 在这里加管理员 openid
+  'ofG6k6wGgggp1udLpAlJPeQK8od4'
 ]
 
 exports.main = async (event, context) => {
