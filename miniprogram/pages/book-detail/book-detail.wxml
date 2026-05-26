@@ -53,11 +53,10 @@
     </view>
   </view>
 
-  <view wx:if="{{isReservedByMe}}" class="my-reserve-tip">
-    ✅ 你已预约这本书<block wx:if="{{book.ownerWechat}}">，请加 {{book.ownerName}} 微信沟通交接</block>
-  </view>
-
   <view class="bottom-bar">
+    <view wx:if="{{isReservedByMe}}" class="my-reserve-tip">
+      ✅ 你已预约这本书<block wx:if="{{book.ownerWechat}}">，请加 {{book.ownerName}} 微信沟通交接</block>
+    </view>
     <block wx:if="{{isOwner}}">
       <button class="btn-primary" disabled>这是你发布的书</button>
     </block>
