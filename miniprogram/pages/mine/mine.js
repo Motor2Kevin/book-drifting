@@ -1,4 +1,5 @@
 const app = getApp()
+const { resolveSingleUrl } = require('../../utils/cover.js')
 
 Page({
   data: {
@@ -26,7 +27,12 @@ Page({
     if (app.loginPromise) await app.loginPromise
 
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo')
-    this.setData({ userInfo })
+    if (userInfo && userInfo.avatar) {
+      const resolved = await resolveSingleUrl(userInfo.avatar)
+      this.setData({ userInfo: { ...userInfo, avatar: resolved } })
+    } else {
+      this.setData({ userInfo })
+    }
 
     const openid = app.globalData.openid || wx.getStorageSync('openid')
     if (!openid) return

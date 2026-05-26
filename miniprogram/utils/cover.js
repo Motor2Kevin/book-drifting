@@ -47,18 +47,35 @@ async function resolveUrls(cloudUrls) {
   })
 }
 
-async function resolveCovers(items, coverField = 'cover') {
-  const allUrls = items.map(item => item[coverField]).filter(Boolean)
-  const resolvedMap = new Map()
+async function resolveCovers(items, fields = ['cover']) {
+  const fieldList = Array.isArray(fields) ? fields : [fields]
+  const allUrls = []
+  for (const item of items) {
+    for (const f of fieldList) {
+      if (item[f]) allUrls.push(item[f])
+    }
+  }
   const resolved = await resolveUrls(allUrls)
+  const resolvedMap = new Map()
   allUrls.forEach((orig, i) => resolvedMap.set(orig, resolved[i]))
   return items.map(item => {
-    const url = item[coverField]
-    if (url && resolvedMap.has(url)) {
-      return { ...item, [coverField]: resolvedMap.get(url) }
+    let changed = false
+    const next = { ...item }
+    for (const f of fieldList) {
+      const url = item[f]
+      if (url && resolvedMap.has(url) && resolvedMap.get(url) !== url) {
+        next[f] = resolvedMap.get(url)
+        changed = true
+      }
     }
-    return item
+    return changed ? next : item
   })
+}
+
+async function resolveSingleUrl(url) {
+  if (!url || !url.startsWith('cloud://')) return url
+  const [resolved] = await resolveUrls([url])
+  return resolved || url
 }
 
 async function resolveBookImages(book) {
@@ -69,16 +86,25 @@ async function resolveBookImages(book) {
   } else if (book.cover) {
     rawImages = [book.cover]
   }
-  const resolved = await resolveUrls(rawImages)
+  const urlsToFetch = [...rawImages]
+  if (book.ownerAvatar) urlsToFetch.push(book.ownerAvatar)
+
+  await resolveUrls(urlsToFetch)
+
+  const resolvedImages = await resolveUrls(rawImages)
+  const resolvedAvatar = await resolveSingleUrl(book.ownerAvatar)
+
   return {
     ...book,
-    images: resolved,
-    cover: resolved[0] || book.cover || ''
+    images: resolvedImages,
+    cover: resolvedImages[0] || book.cover || '',
+    ownerAvatar: resolvedAvatar
   }
 }
 
 module.exports = {
   resolveCovers,
   resolveUrls,
-  resolveBookImages
+  resolveBookImages,
+  resolveSingleUrl
 }

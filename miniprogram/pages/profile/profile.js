@@ -2,6 +2,7 @@ const app = getApp()
 const db = wx.cloud.database()
 const { CITIES } = require('../../utils/cities.js')
 const { isAdmin } = require('../../utils/admin.js')
+const { resolveSingleUrl } = require('../../utils/cover.js')
 
 Page({
   data: {
@@ -40,10 +41,11 @@ Page({
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {}
     const city = userInfo.city || ''
     const openid = app.globalData.openid || wx.getStorageSync('openid') || ''
+    const displayAvatar = userInfo.avatar ? await resolveSingleUrl(userInfo.avatar) : ''
     this.setData({
       form: {
-        avatar: userInfo.avatar || '',
-        avatarFileID: userInfo.avatarFileID || '',
+        avatar: displayAvatar,
+        avatarFileID: userInfo.avatarFileID || (userInfo.avatar && userInfo.avatar.startsWith('cloud://') ? userInfo.avatar : ''),
         nickname: userInfo.nickname === '匿名书友' ? '' : (userInfo.nickname || ''),
         wechatId: userInfo.wechatId || '',
         city

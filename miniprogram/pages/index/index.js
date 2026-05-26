@@ -43,7 +43,7 @@ Page({
         ...b,
         statusText: b.status === 'available' ? '可漂' : '已约'
       }))
-      const books = await resolveCovers(raw)
+      const books = await resolveCovers(raw, ['cover', 'ownerAvatar'])
 
       this.setData({
         allBooks: books,

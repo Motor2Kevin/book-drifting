@@ -56,9 +56,9 @@ Page({
       }))
 
       const [holdingList, readList, reservedList] = await Promise.all([
-        resolveCovers(holdingBooks),
-        resolveCovers(readListRaw),
-        resolveCovers(reservedListRaw)
+        resolveCovers(holdingBooks, ['cover']),
+        resolveCovers(readListRaw, ['cover']),
+        resolveCovers(reservedListRaw, ['cover', 'ownerAvatar'])
       ])
 
       this.setData({
