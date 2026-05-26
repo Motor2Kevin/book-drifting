@@ -3,9 +3,9 @@ Page({
 
   onContactAdmin() {
     wx.setClipboardData({
-      data: 'mzw_pm',
+      data: 'mzw2i3',
       success: () => {
-        wx.showToast({ title: '已复制管理员微信', icon: 'success' })
+        wx.showToast({ title: '已复制微信号', icon: 'success' })
       }
     })
   }
