@@ -1,5 +1,4 @@
 const app = getApp()
-const db = wx.cloud.database()
 const { resolveCovers } = require('../../utils/cover.js')
 
 Page({
@@ -29,11 +28,14 @@ Page({
 
     try {
       const [holdingRes, passedRes] = await Promise.all([
-        db.collection('books').where({ ownerId: openid }).orderBy('createdAt', 'desc').get(),
-        db.collection('books').where({ 'history.fromId': openid }).orderBy('updatedAt', 'desc').get()
+        wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myHolding' } }),
+        wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myPassed' } })
       ])
 
-      const readListRaw = passedRes.data.map(b => {
+      const holdingBooks = (holdingRes.result && holdingRes.result.books) || []
+      const passedBooks = (passedRes.result && passedRes.result.books) || []
+
+      const readListRaw = passedBooks.map(b => {
         const myHistory = (b.history || []).find(h => h.fromId === openid)
         return {
           ...b,
@@ -43,7 +45,7 @@ Page({
       })
 
       const [holdingList, readList] = await Promise.all([
-        resolveCovers(holdingRes.data),
+        resolveCovers(holdingBooks),
         resolveCovers(readListRaw)
       ])
 

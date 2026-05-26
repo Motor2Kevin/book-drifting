@@ -1,6 +1,4 @@
 const app = getApp()
-const db = wx.cloud.database()
-const _ = db.command
 
 Page({
   data: {
@@ -33,17 +31,18 @@ Page({
     if (!openid) return
 
     try {
-      const [holdingRes, readRes] = await Promise.all([
-        db.collection('books').where({ ownerId: openid }).count(),
-        db.collection('books').where({ 'history.fromId': openid }).count()
-      ])
-
-      this.setData({
-        stats: {
-          holding: holdingRes.total || 0,
-          read: readRes.total || 0
-        }
+      const res = await wx.cloud.callFunction({
+        name: 'getBooks',
+        data: { action: 'stats' }
       })
+      if (res.result && res.result.success) {
+        this.setData({
+          stats: {
+            holding: res.result.stats.holding || 0,
+            read: res.result.stats.passed || 0
+          }
+        })
+      }
     } catch (e) {
       console.error('loadStats failed', e)
     }

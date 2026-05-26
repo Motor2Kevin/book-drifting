@@ -1,0 +1,9 @@
+{
+  "name": "getImageUrls",
+  "version": "1.0.0",
+  "description": "云函数用管理员权限把 cloud:// URL 转 HTTPS 临时 URL，绕过免费版存储权限限制",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

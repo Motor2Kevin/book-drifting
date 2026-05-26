@@ -18,19 +18,23 @@ async function resolveUrls(cloudUrls) {
 
   if (needFetch.length > 0) {
     try {
-      const res = await wx.cloud.getTempFileURL({ fileList: needFetch })
-      for (const file of res.fileList || []) {
+      const res = await wx.cloud.callFunction({
+        name: 'getImageUrls',
+        data: { fileList: needFetch }
+      })
+      const fileList = (res.result && res.result.fileList) || []
+      for (const file of fileList) {
         if (file.tempFileURL) {
           tempUrlCache.set(file.fileID, {
             tempUrl: file.tempFileURL,
             expiresAt: now + CACHE_TTL_MS
           })
         } else {
-          console.warn('[cover] getTempFileURL no url for', file.fileID, file.errMsg)
+          console.warn('[cover] no temp url for', file.fileID, file.errMsg)
         }
       }
     } catch (e) {
-      console.error('[cover] getTempFileURL failed', e)
+      console.error('[cover] getImageUrls failed', e)
     }
   }
 

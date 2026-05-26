@@ -1,5 +1,4 @@
 const app = getApp()
-const db = wx.cloud.database()
 const { CITIES_WITH_ALL } = require('../../utils/cities.js')
 const { resolveCovers } = require('../../utils/cover.js')
 
@@ -32,12 +31,15 @@ Page({
   async loadBooks() {
     this.setData({ loading: true })
     try {
-      const res = await db.collection('books')
-        .orderBy('createdAt', 'desc')
-        .limit(50)
-        .get()
+      const res = await wx.cloud.callFunction({
+        name: 'getBooks',
+        data: { action: 'list' }
+      })
+      if (!res.result || !res.result.success) {
+        throw new Error((res.result && res.result.error) || '加载失败')
+      }
 
-      const raw = res.data.map(b => ({
+      const raw = (res.result.books || []).map(b => ({
         ...b,
         statusText: b.status === 'available' ? '可漂' : '已约'
       }))

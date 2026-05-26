@@ -1,5 +1,4 @@
 const app = getApp()
-const db = wx.cloud.database()
 const { resolveBookImages } = require('../../utils/cover.js')
 const { isAdmin } = require('../../utils/admin.js')
 
@@ -27,8 +26,14 @@ Page({
 
   async loadBook(id) {
     try {
-      const res = await db.collection('books').doc(id).get()
-      const book = await resolveBookImages(res.data)
+      const res = await wx.cloud.callFunction({
+        name: 'getBooks',
+        data: { action: 'detail', bookId: id }
+      })
+      if (!res.result || !res.result.success) {
+        throw new Error((res.result && res.result.error) || '加载失败')
+      }
+      const book = await resolveBookImages(res.result.book)
       this.setData({ book })
     } catch (e) {
       console.error('loadBook failed', e)

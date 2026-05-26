@@ -1,0 +1,9 @@
+{
+  "name": "getBooks",
+  "version": "1.0.0",
+  "description": "用管理员权限读取书籍数据，绕过免费版前端权限限制",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
