@@ -1,5 +1,16 @@
 <view class="page">
-  <view class="filter-bar">
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索书名"
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+      />
+      <text wx:if="{{searchKeyword}}" class="search-clear" bindtap="onClearSearch">✕</text>
+    </view>
     <picker
       mode="selector"
       range="{{cityOptions}}"
@@ -11,7 +22,6 @@
         <text class="filter-arrow">▾</text>
       </view>
     </picker>
-    <view wx:if="{{currentCity !== '全部'}}" class="filter-clear" bindtap="onClearFilter">清除</view>
   </view>
 
   <view class="book-grid">

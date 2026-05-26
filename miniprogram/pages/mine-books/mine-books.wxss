@@ -94,13 +94,37 @@
   font-size: 24rpx;
 }
 
-.row-action {
-  align-self: center;
+.row-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.row-action-btn {
   font-size: 22rpx !important;
   padding: 0 20rpx !important;
   height: 60rpx !important;
   line-height: 56rpx !important;
-  flex-shrink: 0;
+}
+
+.row-more {
+  font-size: 36rpx;
+  color: #999;
+  padding: 0 12rpx;
+  line-height: 1;
+  letter-spacing: 2rpx;
+}
+
+.row-status {
+  margin-top: 8rpx;
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  background: #fdf2e0;
+  color: #b8860b;
+  border-radius: 8rpx;
+  font-size: 22rpx;
 }
 
 .empty {

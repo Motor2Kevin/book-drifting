@@ -15,8 +15,12 @@
         <view class="row-title">{{item.title}}</view>
         <view class="row-author text-muted">{{item.author}}</view>
         <view class="row-message text-muted">"{{item.message}}"</view>
+        <view wx:if="{{item.status === 'reserved'}}" class="row-status">已被他人申请</view>
       </view>
-      <button class="row-action btn-secondary" size="mini" catchtap="onConfirmHandover" data-id="{{item._id}}">已交给他人</button>
+      <view class="row-actions">
+        <view class="row-more" catchtap="onShowActions" data-id="{{item._id}}" data-status="{{item.status}}">⋯</view>
+        <button class="row-action-btn btn-secondary" size="mini" catchtap="onConfirmHandover" data-id="{{item._id}}">已交给他人</button>
+      </view>
     </view>
     <view wx:if="{{holdingList.length === 0}}" class="empty">
       <view class="empty-text">还没有持有中的书</view>

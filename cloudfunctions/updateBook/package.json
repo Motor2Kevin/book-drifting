@@ -1,0 +1,9 @@
+{
+  "name": "updateBook",
+  "version": "1.0.0",
+  "description": "修改持有中的书籍信息",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

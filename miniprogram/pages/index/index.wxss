@@ -1,24 +1,55 @@
 .page {
   min-height: 100vh;
-  padding-bottom: 120rpx;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
 }
 
-.filter-bar {
+.search-bar {
   display: flex;
   align-items: center;
-  padding: 20rpx 24rpx;
+  padding: 16rpx 24rpx;
   background: #ffffff;
   border-bottom: 1rpx solid #eeeae0;
+  gap: 16rpx;
+}
+
+.search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #f5f3ee;
+  border-radius: 32rpx;
+  padding: 12rpx 20rpx;
+  min-height: 56rpx;
+}
+
+.search-icon {
+  font-size: 24rpx;
+  margin-right: 10rpx;
+  opacity: 0.6;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: #2c2825;
+}
+
+.search-clear {
+  margin-left: 10rpx;
+  font-size: 24rpx;
+  color: #999;
+  padding: 4rpx 12rpx;
 }
 
 .filter-pill {
   display: inline-flex;
   align-items: center;
-  padding: 12rpx 28rpx;
+  padding: 12rpx 24rpx;
   background: #f5f3ee;
   border-radius: 32rpx;
   font-size: 26rpx;
   color: #4a443e;
+  white-space: nowrap;
 }
 
 .filter-pill.active {
@@ -29,13 +60,6 @@
 .filter-arrow {
   margin-left: 8rpx;
   font-size: 20rpx;
-}
-
-.filter-clear {
-  margin-left: 16rpx;
-  font-size: 24rpx;
-  color: #999;
-  padding: 12rpx 16rpx;
 }
 
 .book-grid {
@@ -139,7 +163,7 @@
 .fab {
   position: fixed;
   right: 40rpx;
-  bottom: 60rpx;
+  bottom: calc(120rpx + env(safe-area-inset-bottom));
   width: 120rpx;
   height: 120rpx;
   background: #8b6f47;
@@ -150,6 +174,7 @@
   justify-content: center;
   box-shadow: 0 8rpx 24rpx rgba(139, 111, 71, 0.4);
   color: #ffffff;
+  z-index: 100;
 }
 
 .fab-icon {

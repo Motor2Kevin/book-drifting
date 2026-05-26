@@ -9,6 +9,7 @@ Page({
     currentCity: '全部',
     cityOptions: CITIES_WITH_ALL,
     cityIndex: 0,
+    searchKeyword: '',
     loading: true
   },
 
@@ -44,7 +45,7 @@ Page({
         allBooks: books,
         loading: false
       })
-      this.filterByCity(this.data.currentCity)
+      this.applyFilters()
     } catch (e) {
       console.error('loadBooks failed', e)
       this.setData({ loading: false })
@@ -56,18 +57,27 @@ Page({
     const idx = parseInt(e.detail.value, 10)
     const city = CITIES_WITH_ALL[idx]
     this.setData({ currentCity: city, cityIndex: idx })
-    this.filterByCity(city)
+    this.applyFilters()
   },
 
-  onClearFilter() {
-    this.setData({ currentCity: '全部', cityIndex: 0 })
-    this.filterByCity('全部')
+  onSearchInput(e) {
+    this.setData({ searchKeyword: e.detail.value })
+    this.applyFilters()
   },
 
-  filterByCity(city) {
-    const list = city === '全部'
-      ? this.data.allBooks
-      : this.data.allBooks.filter(b => b.city === city)
+  onClearSearch() {
+    this.setData({ searchKeyword: '' })
+    this.applyFilters()
+  },
+
+  applyFilters() {
+    const { allBooks, currentCity, searchKeyword } = this.data
+    const keyword = searchKeyword.trim().toLowerCase()
+    const list = allBooks.filter(b => {
+      const cityMatch = currentCity === '全部' || b.city === currentCity
+      const titleMatch = !keyword || (b.title && b.title.toLowerCase().includes(keyword))
+      return cityMatch && titleMatch
+    })
     this.setData({ filteredBooks: list })
   },
 

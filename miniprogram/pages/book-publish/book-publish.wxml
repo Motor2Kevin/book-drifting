@@ -51,10 +51,11 @@
   </view>
 
   <view class="tip-box">
-    <text>📌 发布后，其他读者可以申请这本书，你将通过微信和对方沟通交接。</text>
+    <text wx:if="{{!isEdit}}">📌 发布后，其他读者可以申请这本书，你将通过微信和对方沟通交接。</text>
+    <text wx:else>📌 修改后立即生效，已经在浏览这本书的读者会看到最新内容。</text>
   </view>
 
   <view class="bottom-bar">
-    <button class="btn-primary" bindtap="onSubmit" disabled="{{!canSubmit}}">发布漂流</button>
+    <button class="btn-primary" bindtap="onSubmit" disabled="{{!canSubmit}}">{{isEdit ? '保存修改' : '发布漂流'}}</button>
   </view>
 </view>
