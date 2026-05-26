@@ -1,6 +1,7 @@
 const app = getApp()
 const db = wx.cloud.database()
 const { CITIES_WITH_ALL } = require('../../utils/cities.js')
+const { resolveCovers } = require('../../utils/cover.js')
 
 Page({
   data: {
@@ -36,12 +37,11 @@ Page({
         .limit(50)
         .get()
 
-      const books = res.data.map(b => ({
+      const raw = res.data.map(b => ({
         ...b,
         statusText: b.status === 'available' ? '可漂' : '已约'
       }))
-
-      console.log('[index] books loaded:', books.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
+      const books = await resolveCovers(raw)
 
       this.setData({
         allBooks: books,

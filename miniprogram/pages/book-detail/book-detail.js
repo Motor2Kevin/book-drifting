@@ -1,5 +1,6 @@
 const app = getApp()
 const db = wx.cloud.database()
+const { resolveCovers } = require('../../utils/cover.js')
 
 Page({
   data: {
@@ -22,7 +23,8 @@ Page({
   async loadBook(id) {
     try {
       const res = await db.collection('books').doc(id).get()
-      this.setData({ book: res.data })
+      const [book] = await resolveCovers([res.data])
+      this.setData({ book })
     } catch (e) {
       console.error('loadBook failed', e)
       wx.showToast({ title: '书籍不存在', icon: 'none' })

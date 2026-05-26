@@ -1,5 +1,6 @@
 const app = getApp()
 const db = wx.cloud.database()
+const { resolveCovers } = require('../../utils/cover.js')
 
 Page({
   data: {
@@ -32,7 +33,7 @@ Page({
         db.collection('books').where({ 'history.fromId': openid }).orderBy('updatedAt', 'desc').get()
       ])
 
-      const readList = passedRes.data.map(b => {
+      const readListRaw = passedRes.data.map(b => {
         const myHistory = (b.history || []).find(h => h.fromId === openid)
         return {
           ...b,
@@ -41,11 +42,13 @@ Page({
         }
       })
 
-      console.log('[mine-books] holding covers:', holdingRes.data.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
-      console.log('[mine-books] read covers:', readList.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
+      const [holdingList, readList] = await Promise.all([
+        resolveCovers(holdingRes.data),
+        resolveCovers(readListRaw)
+      ])
 
       this.setData({
-        holdingList: holdingRes.data,
+        holdingList,
         readList,
         loading: false
       })
