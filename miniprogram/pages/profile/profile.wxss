@@ -69,6 +69,16 @@
   padding: 24rpx 30rpx;
 }
 
+.admin-badge {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  background: #fdf2e0;
+  color: #b8860b;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  margin-bottom: 16rpx;
+}
+
 .openid-label {
   font-size: 24rpx;
   color: #999;

@@ -1,6 +1,7 @@
 const app = getApp()
 const db = wx.cloud.database()
 const { CITIES } = require('../../utils/cities.js')
+const { isAdmin } = require('../../utils/admin.js')
 
 Page({
   data: {
@@ -12,6 +13,7 @@ Page({
       city: ''
     },
     openid: '',
+    isAdmin: false,
     cityOptions: CITIES,
     cityIndex: -1,
     defaultAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
@@ -47,6 +49,7 @@ Page({
         city
       },
       openid,
+      isAdmin: isAdmin(openid),
       cityIndex: city ? CITIES.indexOf(city) : -1
     })
   },

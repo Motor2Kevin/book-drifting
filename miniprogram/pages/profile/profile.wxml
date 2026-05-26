@@ -54,8 +54,9 @@
     <text>📌 微信号会在你申请书或者发布书后，展示给对应的书友，用于联系交接。</text>
   </view>
 
-  <view class="card openid-card" wx:if="{{openid}}">
-    <view class="openid-label">用户 ID（管理员配置时用）</view>
+  <view class="card openid-card" wx:if="{{openid && isAdmin}}">
+    <view class="admin-badge">🔒 管理员</view>
+    <view class="openid-label">你的 openid</view>
     <view class="openid-row" bindtap="onCopyOpenid">
       <text class="openid-value">{{openid}}</text>
       <text class="openid-copy">复制</text>
