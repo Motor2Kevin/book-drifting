@@ -11,10 +11,18 @@ Page({
       wechatId: '',
       city: ''
     },
+    openid: '',
     cityOptions: CITIES,
     cityIndex: -1,
     defaultAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
     saving: false
+  },
+
+  onCopyOpenid() {
+    wx.setClipboardData({
+      data: this.data.openid,
+      success: () => wx.showToast({ title: '已复制 openid', icon: 'success' })
+    })
   },
 
   onCityChange(e) {
@@ -29,6 +37,7 @@ Page({
     if (app.loginPromise) await app.loginPromise
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {}
     const city = userInfo.city || ''
+    const openid = app.globalData.openid || wx.getStorageSync('openid') || ''
     this.setData({
       form: {
         avatar: userInfo.avatar || '',
@@ -37,6 +46,7 @@ Page({
         wechatId: userInfo.wechatId || '',
         city
       },
+      openid,
       cityIndex: city ? CITIES.indexOf(city) : -1
     })
   },

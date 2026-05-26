@@ -171,6 +171,17 @@
   box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
 }
 
+.btn-admin-delete {
+  margin-top: 12rpx;
+  background: #ffffff;
+  color: #d96666;
+  border: 2rpx solid #d96666;
+  border-radius: 48rpx;
+  padding: 20rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+}
+
 .loading {
   text-align: center;
   padding: 200rpx 0;

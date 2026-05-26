@@ -64,6 +64,39 @@
   color: #c4c4c4;
 }
 
+.openid-card {
+  margin: 20rpx;
+  padding: 24rpx 30rpx;
+}
+
+.openid-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.openid-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.openid-value {
+  flex: 1;
+  font-size: 24rpx;
+  color: #2c2825;
+  font-family: monospace;
+  word-break: break-all;
+  margin-right: 20rpx;
+}
+
+.openid-copy {
+  font-size: 24rpx;
+  color: #8b6f47;
+  padding: 4rpx 12rpx;
+  flex-shrink: 0;
+}
+
 .divider {
   height: 1rpx;
   background: #f5f3ee;

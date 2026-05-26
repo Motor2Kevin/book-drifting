@@ -1,11 +1,13 @@
 const app = getApp()
 const db = wx.cloud.database()
 const { resolveCovers } = require('../../utils/cover.js')
+const { isAdmin } = require('../../utils/admin.js')
 
 Page({
   data: {
     book: null,
-    bookId: ''
+    bookId: '',
+    showAdminDelete: false
   },
 
   onLoad(options) {
@@ -14,7 +16,10 @@ Page({
     this.loadBook(id)
   },
 
-  onShow() {
+  async onShow() {
+    if (app.loginPromise) await app.loginPromise
+    const openid = app.globalData.openid || wx.getStorageSync('openid')
+    this.setData({ showAdminDelete: isAdmin(openid) })
     if (this.data.bookId) {
       this.loadBook(this.data.bookId)
     }
@@ -30,6 +35,36 @@ Page({
       wx.showToast({ title: '书籍不存在', icon: 'none' })
       setTimeout(() => wx.navigateBack(), 1000)
     }
+  },
+
+  onAdminDelete() {
+    wx.showModal({
+      title: '管理员删除',
+      content: `确认删除《${this.data.book.title}》？\n\n仅当书籍内容违规时使用，删除后无法恢复。`,
+      confirmText: '删除',
+      confirmColor: '#d96666',
+      success: async (res) => {
+        if (!res.confirm) return
+        wx.showLoading({ title: '删除中...', mask: true })
+        try {
+          const cloudRes = await wx.cloud.callFunction({
+            name: 'deleteBook',
+            data: { bookId: this.data.bookId, reason: 'admin: violated content' }
+          })
+          wx.hideLoading()
+          if (cloudRes.result.success) {
+            wx.showToast({ title: '已删除', icon: 'success' })
+            setTimeout(() => wx.navigateBack(), 1200)
+          } else {
+            wx.showToast({ title: cloudRes.result.error || '删除失败', icon: 'none' })
+          }
+        } catch (err) {
+          wx.hideLoading()
+          console.error('admin delete failed', err)
+          wx.showToast({ title: '删除失败', icon: 'none' })
+        }
+      }
+    })
   },
 
   async onWantBook() {

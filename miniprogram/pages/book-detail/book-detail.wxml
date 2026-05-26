@@ -50,6 +50,11 @@
       bindtap="onWantBook"
       disabled="{{book.status !== 'available'}}"
     >{{book.status === 'available' ? '我想要这本书' : '已被他人预约'}}</button>
+    <button
+      wx:if="{{showAdminDelete}}"
+      class="btn-admin-delete"
+      bindtap="onAdminDelete"
+    >🚫 管理员删除</button>
   </view>
 </view>
 
