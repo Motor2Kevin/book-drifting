@@ -7,13 +7,16 @@
 
   <view class="card">
     <view class="section-title">👋 加入读书群</view>
-    <view class="wechat-card">
-      <view class="wechat-tip">读书群已超 200 人，无法分享二维码邀请。请添加管理员微信，备注「书籍漂流」，会邀你进群。</view>
-      <view class="wechat-row" bindtap="onContactAdmin">
-        <view class="wechat-label">管理员微信</view>
-        <view class="wechat-value">mzw2i3</view>
-        <view class="wechat-copy">复制</view>
-      </view>
+    <view class="wechat-tip">读书群已超 200 人，无法分享群二维码。请扫下方二维码添加管理员微信，备注「书籍漂流」，会邀你进群。</view>
+    <view class="qrcode-wrap">
+      <image
+        class="qrcode-img"
+        src="/images/admin-qrcode.jpg"
+        mode="widthFix"
+        show-menu-by-longpress
+        bindtap="onTapQrcode"
+      ></image>
+      <view class="qrcode-hint">长按二维码可保存或识别</view>
     </view>
   </view>
 

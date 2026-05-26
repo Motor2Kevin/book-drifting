@@ -34,13 +34,9 @@
   margin-bottom: 24rpx;
 }
 
-.wechat-card {
-  margin-top: 8rpx;
-}
-
 .wechat-tip {
   font-size: 24rpx;
-  color: #666;
+  color: #8b7d4a;
   line-height: 1.7;
   background: #fdf6e0;
   padding: 16rpx 20rpx;
@@ -48,35 +44,23 @@
   margin-bottom: 24rpx;
 }
 
-.wechat-row {
+.qrcode-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 24rpx;
+  padding: 20rpx 0;
+}
+
+.qrcode-img {
+  width: 480rpx;
+  border-radius: 16rpx;
   background: #faf8f3;
-  border-radius: 12rpx;
 }
 
-.wechat-label {
-  font-size: 26rpx;
-  color: #666;
-  margin-right: 24rpx;
-}
-
-.wechat-value {
-  flex: 1;
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #2c2825;
-  font-family: monospace;
-  letter-spacing: 1rpx;
-}
-
-.wechat-copy {
-  font-size: 26rpx;
-  color: #8b6f47;
-  padding: 8rpx 20rpx;
-  border: 2rpx solid #8b6f47;
-  border-radius: 32rpx;
+.qrcode-hint {
+  margin-top: 20rpx;
+  font-size: 22rpx;
+  color: #999;
 }
 
 .rule-item {
