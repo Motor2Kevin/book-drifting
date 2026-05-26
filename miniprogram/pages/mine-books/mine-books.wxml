@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="tab-bar">
+    <view class="tab-item {{currentType === 'holding' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="holding">
+      持有中 ({{holdingList.length}})
+    </view>
+    <view class="tab-item {{currentType === 'read' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="read">
+      已读过 ({{readList.length}})
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{currentType === 'holding'}}">
+    <view wx:for="{{holdingList}}" wx:key="_id" class="book-row card">
+      <image class="row-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="row-info">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-author text-muted">{{item.author}}</view>
+        <view class="row-message text-muted">"{{item.message}}"</view>
+      </view>
+      <button class="row-action btn-secondary" size="mini" catchtap="onConfirmHandover" data-id="{{item._id}}">已交给他人</button>
+    </view>
+    <view wx:if="{{holdingList.length === 0}}" class="empty">
+      <view class="empty-text">还没有持有中的书</view>
+      <view class="empty-hint">去书架看看吧</view>
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{currentType === 'read'}}">
+    <view wx:for="{{readList}}" wx:key="_id" class="book-row card">
+      <image class="row-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="row-info">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-author text-muted">{{item.author}}</view>
+        <view class="row-history text-muted">来自 {{item.receivedFrom}} · {{item.receivedAt}}</view>
+      </view>
+    </view>
+    <view wx:if="{{readList.length === 0}}" class="empty">
+      <view class="empty-text">还没有读过的书</view>
+    </view>
+  </view>
+</view>

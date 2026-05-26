@@ -1,0 +1,83 @@
+.page {
+  padding: 20rpx;
+  padding-bottom: 200rpx;
+  min-height: 100vh;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  min-height: 88rpx;
+}
+
+.avatar-item {
+  cursor: pointer;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #2c2825;
+  width: 180rpx;
+}
+
+.required {
+  color: #d96666;
+}
+
+.form-input {
+  font-size: 28rpx;
+  color: #2c2825;
+  flex: 1;
+}
+
+.form-input-right {
+  text-align: right;
+}
+
+.form-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #eeeae0;
+}
+
+.arrow {
+  margin-left: 12rpx;
+  font-size: 36rpx;
+  color: #ccc;
+}
+
+.divider {
+  height: 1rpx;
+  background: #f5f3ee;
+  margin: 0 30rpx;
+}
+
+.tip-box {
+  margin: 20rpx;
+  padding: 16rpx 20rpx;
+  background: #fdf6e0;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #8b7d4a;
+  line-height: 1.6;
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  padding: 20rpx 40rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
+}

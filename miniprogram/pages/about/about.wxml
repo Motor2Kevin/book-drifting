@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-emoji">📚</view>
+    <view class="hero-title">让一本书，遇见更多人</view>
+    <view class="hero-subtitle">书籍漂流 · 让阅读流动起来</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">👋 加入读书群</view>
+    <view class="qr-wrap">
+      <view class="qr-placeholder">
+        <view class="qr-icon">📱</view>
+        <view class="qr-text">群二维码</view>
+        <view class="qr-hint">（管理员定期更新，请联系运营获取最新二维码）</view>
+      </view>
+    </view>
+    <view class="action-row">
+      <button class="btn-secondary" bindtap="onContactAdmin">联系管理员</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">🌊 玩法说明</view>
+    <view class="rule-item">
+      <view class="rule-num">1</view>
+      <view class="rule-text">
+        <view class="rule-title">发布一本书</view>
+        <view class="rule-desc">拍封面，写上想对下一位读者说的话</view>
+      </view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-num">2</view>
+      <view class="rule-text">
+        <view class="rule-title">等待书友申请</view>
+        <view class="rule-desc">书友点"我想要"后，会拿到你的微信号</view>
+      </view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-num">3</view>
+      <view class="rule-text">
+        <view class="rule-title">微信沟通交接</view>
+        <view class="rule-desc">线下面交或邮寄，自由约定</view>
+      </view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-num">4</view>
+      <view class="rule-text">
+        <view class="rule-title">继续漂下去</view>
+        <view class="rule-desc">读完后再发出，让这本书继续旅行</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer text-muted">
+    <view>v 0.1.0 · MVP</view>
+    <view>用 ❤️ 让书流动起来</view>
+  </view>
+</view>

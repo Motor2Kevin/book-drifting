@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="filter-bar">
+    <view class="filter-item {{currentCity === 'all' ? 'active' : ''}}" bindtap="onSelectCity" data-city="all">全部</view>
+    <view class="filter-item {{currentCity === '北京' ? 'active' : ''}}" bindtap="onSelectCity" data-city="北京">北京</view>
+    <view class="filter-item {{currentCity === '上海' ? 'active' : ''}}" bindtap="onSelectCity" data-city="上海">上海</view>
+    <view class="filter-item {{currentCity === '杭州' ? 'active' : ''}}" bindtap="onSelectCity" data-city="杭州">杭州</view>
+    <view class="filter-item {{currentCity === '深圳' ? 'active' : ''}}" bindtap="onSelectCity" data-city="深圳">深圳</view>
+  </view>
+
+  <view class="book-grid">
+    <view wx:for="{{filteredBooks}}" wx:key="_id" class="book-card" bindtap="onTapBook" data-id="{{item._id}}">
+      <image class="book-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="true"></image>
+      <view class="book-info">
+        <view class="book-title">{{item.title}}</view>
+        <view class="book-author">{{item.author}}</view>
+        <view class="book-bottom">
+          <view class="book-owner">
+            <image class="owner-avatar" src="{{item.ownerAvatar}}"></image>
+            <text class="owner-name">{{item.ownerName}}</text>
+          </view>
+          <view class="tag {{item.status === 'available' ? 'tag-available' : 'tag-reserved'}}">
+            {{item.status === 'available' ? '可漂' : '已约'}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{!loading && filteredBooks.length === 0}}" class="empty">
+    <view class="empty-text">这里还没有书</view>
+    <view class="empty-hint">成为第一个发书的人吧 📚</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <view class="empty-text">加载中...</view>
+  </view>
+
+  <view class="fab" bindtap="onTapPublish">
+    <text class="fab-icon">+</text>
+    <text class="fab-text">发书</text>
+  </view>
+</view>

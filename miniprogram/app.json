@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/book-detail/book-detail",
+    "pages/book-publish/book-publish",
+    "pages/mine/mine",
+    "pages/mine-books/mine-books",
+    "pages/profile/profile",
+    "pages/about/about"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "书籍漂流",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f3ee"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#8b6f47",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "书架"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

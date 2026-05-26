@@ -1,0 +1,122 @@
+.page {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #8b6f47 0%, #a78760 100%);
+  border-radius: 16rpx;
+  padding: 60rpx 30rpx;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hero-emoji {
+  font-size: 80rpx;
+}
+
+.hero-title {
+  margin-top: 20rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.hero-subtitle {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2c2825;
+  margin-bottom: 24rpx;
+}
+
+.qr-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx 0;
+}
+
+.qr-placeholder {
+  width: 360rpx;
+  height: 360rpx;
+  background: #faf8f3;
+  border: 2rpx dashed #c9bfae;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.qr-icon {
+  font-size: 80rpx;
+}
+
+.qr-text {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.qr-hint {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.action-row {
+  margin-top: 20rpx;
+  padding: 0 40rpx;
+}
+
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16rpx 0;
+}
+
+.rule-num {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: #8b6f47;
+  color: #ffffff;
+  text-align: center;
+  line-height: 48rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
+
+.rule-text {
+  flex: 1;
+}
+
+.rule-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #2c2825;
+}
+
+.rule-desc {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.6;
+}
+
+.footer {
+  text-align: center;
+  padding: 60rpx 0 40rpx;
+  font-size: 22rpx;
+  line-height: 2;
+}

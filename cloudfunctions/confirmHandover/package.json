@@ -1,0 +1,9 @@
+{
+  "name": "confirmHandover",
+  "version": "1.0.0",
+  "description": "确认书籍已交接给申请人",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

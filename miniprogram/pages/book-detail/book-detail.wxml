@@ -1,0 +1,56 @@
+<view class="page" wx:if="{{book}}">
+  <view class="hero">
+    <image class="hero-bg" src="{{book.cover}}" mode="aspectFill"></image>
+    <view class="hero-mask"></view>
+    <image class="hero-cover" src="{{book.cover}}" mode="aspectFill"></image>
+    <view class="hero-info">
+      <view class="hero-title">{{book.title}}</view>
+      <view class="hero-author">{{book.author}}</view>
+      <view class="hero-tags">
+        <view class="tag tag-city">📍 {{book.city}}</view>
+        <view class="tag {{book.status === 'available' ? 'tag-available' : 'tag-reserved'}}">
+          {{book.status === 'available' ? '可漂' : '已被预约'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">💬 留给下一位读者</view>
+    <view class="message-text">{{book.message}}</view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">📖 当前持有人</view>
+    <view class="owner-row">
+      <image class="owner-avatar-lg" src="{{book.ownerAvatar}}"></image>
+      <view class="owner-detail">
+        <view class="owner-name-lg">{{book.ownerName}}</view>
+        <view class="owner-city text-muted">来自 {{book.city}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section card" wx:if="{{book.history.length > 0}}">
+    <view class="section-title">📜 漂流历史</view>
+    <view class="history-list">
+      <view wx:for="{{book.history}}" wx:key="handedAt" class="history-item">
+        <view class="history-dot"></view>
+        <view class="history-content">
+          <view class="history-text">{{item.fromName}} → {{item.toName}}</view>
+          <view class="history-time text-muted">{{item.handedAt}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <button
+      class="btn-primary"
+      bindtap="onWantBook"
+      disabled="{{book.status !== 'available'}}"
+    >{{book.status === 'available' ? '我想要这本书' : '已被他人预约'}}</button>
+  </view>
+</view>
+
+<view wx:else class="loading">加载中...</view>

@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="form-section card">
+    <view class="cover-uploader" bindtap="onChooseCover">
+      <image wx:if="{{form.cover}}" class="cover-preview" src="{{form.cover}}" mode="aspectFill"></image>
+      <view wx:else class="cover-placeholder">
+        <view class="cover-icon">📷</view>
+        <view class="cover-text">上传书籍封面</view>
+        <view class="cover-hint">点击拍照或选择图片</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-section card">
+    <view class="form-item">
+      <view class="form-label">书名 <text class="required">*</text></view>
+      <input
+        class="form-input"
+        placeholder="请输入书名"
+        value="{{form.title}}"
+        bindinput="onInput"
+        data-field="title"
+        maxlength="50"
+      />
+    </view>
+    <view class="divider"></view>
+    <view class="form-item">
+      <view class="form-label">作者 <text class="required">*</text></view>
+      <input
+        class="form-input"
+        placeholder="请输入作者"
+        value="{{form.author}}"
+        bindinput="onInput"
+        data-field="author"
+        maxlength="30"
+      />
+    </view>
+  </view>
+
+  <view class="form-section card">
+    <view class="form-label">给下一位读者的话 <text class="required">*</text></view>
+    <textarea
+      class="form-textarea"
+      placeholder="这本书带给你什么？想对下一位读者说点什么？"
+      value="{{form.message}}"
+      bindinput="onInput"
+      data-field="message"
+      maxlength="200"
+      auto-height
+    />
+    <view class="char-count">{{form.message.length}}/200</view>
+  </view>
+
+  <view class="tip-box">
+    <text>📌 发布后，其他读者可以申请这本书，你将通过微信和对方沟通交接。</text>
+  </view>
+
+  <view class="bottom-bar">
+    <button class="btn-primary" bindtap="onSubmit" disabled="{{!canSubmit}}">发布漂流</button>
+  </view>
+</view>

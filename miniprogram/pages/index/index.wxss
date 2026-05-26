@@ -1,0 +1,152 @@
+.page {
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.filter-bar {
+  display: flex;
+  padding: 20rpx 24rpx;
+  background: #ffffff;
+  border-bottom: 1rpx solid #eeeae0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.filter-item {
+  display: inline-block;
+  padding: 12rpx 28rpx;
+  margin-right: 16rpx;
+  background: #f5f3ee;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.filter-item.active {
+  background: #8b6f47;
+  color: #ffffff;
+}
+
+.book-grid {
+  padding: 20rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.book-card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.book-cover {
+  width: 100%;
+  height: 380rpx;
+  background: #eeeae0;
+}
+
+.book-info {
+  padding: 20rpx;
+}
+
+.book-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2c2825;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.book-author {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 6rpx;
+}
+
+.book-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+}
+
+.book-owner {
+  display: flex;
+  align-items: center;
+}
+
+.owner-avatar {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #eeeae0;
+}
+
+.owner-name {
+  font-size: 22rpx;
+  color: #666;
+  margin-left: 8rpx;
+}
+
+.tag {
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+}
+
+.tag-available {
+  background: #e8f3e8;
+  color: #4a8c4a;
+}
+
+.tag-reserved {
+  background: #fdf2e0;
+  color: #b8860b;
+}
+
+.empty {
+  padding: 200rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 120rpx;
+  height: 120rpx;
+  background: #8b6f47;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(139, 111, 71, 0.4);
+  color: #ffffff;
+}
+
+.fab-icon {
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.fab-text {
+  font-size: 22rpx;
+  margin-top: 4rpx;
+}

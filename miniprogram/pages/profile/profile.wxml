@@ -1,0 +1,55 @@
+<view class="page">
+  <view class="card">
+    <view class="form-item avatar-item" bindtap="onChooseAvatar">
+      <view class="form-label">头像</view>
+      <view class="form-right">
+        <image class="avatar" src="{{form.avatar || defaultAvatar}}"></image>
+        <view class="arrow">›</view>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="form-item">
+      <view class="form-label">昵称</view>
+      <input
+        class="form-input form-input-right"
+        placeholder="请输入昵称"
+        value="{{form.nickname}}"
+        bindinput="onInput"
+        data-field="nickname"
+        maxlength="20"
+      />
+    </view>
+    <view class="divider"></view>
+    <view class="form-item">
+      <view class="form-label">微信号 <text class="required">*</text></view>
+      <input
+        class="form-input form-input-right"
+        placeholder="供书友联系你"
+        value="{{form.wechatId}}"
+        bindinput="onInput"
+        data-field="wechatId"
+        maxlength="30"
+      />
+    </view>
+    <view class="divider"></view>
+    <view class="form-item">
+      <view class="form-label">所在城市</view>
+      <input
+        class="form-input form-input-right"
+        placeholder="例如：北京"
+        value="{{form.city}}"
+        bindinput="onInput"
+        data-field="city"
+        maxlength="10"
+      />
+    </view>
+  </view>
+
+  <view class="tip-box">
+    <text>📌 微信号会在你申请书或者发布书后，展示给对应的书友，用于联系交接。</text>
+  </view>
+
+  <view class="bottom-bar">
+    <button class="btn-primary" bindtap="onSave">保存</button>
+  </view>
+</view>

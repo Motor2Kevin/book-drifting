@@ -1,0 +1,9 @@
+{
+  "name": "reserveBook",
+  "version": "1.0.0",
+  "description": "申请锁定一本书 24h",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

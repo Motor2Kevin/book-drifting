@@ -1,0 +1,109 @@
+.page {
+  padding: 20rpx;
+  padding-bottom: 200rpx;
+}
+
+.form-section {
+  padding: 24rpx;
+}
+
+.cover-uploader {
+  width: 100%;
+  height: 480rpx;
+  background: #faf8f3;
+  border: 2rpx dashed #c9bfae;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-placeholder {
+  text-align: center;
+}
+
+.cover-icon {
+  font-size: 80rpx;
+}
+
+.cover-text {
+  margin-top: 16rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.cover-hint {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.form-item {
+  padding: 20rpx 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #2c2825;
+  margin-bottom: 16rpx;
+}
+
+.required {
+  color: #d96666;
+}
+
+.form-input {
+  font-size: 30rpx;
+  color: #2c2825;
+  padding: 10rpx 0;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #2c2825;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background: #eeeae0;
+}
+
+.tip-box {
+  margin: 20rpx;
+  padding: 16rpx 20rpx;
+  background: #fdf6e0;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #8b7d4a;
+  line-height: 1.6;
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  padding: 20rpx 40rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
+}

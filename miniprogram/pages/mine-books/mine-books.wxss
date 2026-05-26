@@ -1,0 +1,110 @@
+.page {
+  min-height: 100vh;
+}
+
+.tab-bar {
+  display: flex;
+  background: #ffffff;
+  border-bottom: 1rpx solid #eeeae0;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #8b6f47;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 60rpx;
+  height: 4rpx;
+  background: #8b6f47;
+  border-radius: 2rpx;
+}
+
+.list {
+  padding: 20rpx;
+}
+
+.book-row {
+  display: flex;
+  padding: 20rpx;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.row-cover {
+  width: 120rpx;
+  height: 160rpx;
+  border-radius: 8rpx;
+  background: #eeeae0;
+  flex-shrink: 0;
+}
+
+.row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2c2825;
+}
+
+.row-author {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+}
+
+.row-message {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.row-history {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}
+
+.row-action {
+  align-self: center;
+  font-size: 22rpx !important;
+  padding: 0 20rpx !important;
+  height: 60rpx !important;
+  line-height: 56rpx !important;
+  flex-shrink: 0;
+}
+
+.empty {
+  padding: 160rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.empty-hint {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #999;
+}
