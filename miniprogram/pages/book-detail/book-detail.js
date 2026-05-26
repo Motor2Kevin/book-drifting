@@ -1,6 +1,6 @@
 const app = getApp()
 const db = wx.cloud.database()
-const { resolveCovers } = require('../../utils/cover.js')
+const { resolveBookImages } = require('../../utils/cover.js')
 const { isAdmin } = require('../../utils/admin.js')
 
 Page({
@@ -28,13 +28,23 @@ Page({
   async loadBook(id) {
     try {
       const res = await db.collection('books').doc(id).get()
-      const [book] = await resolveCovers([res.data])
+      const book = await resolveBookImages(res.data)
       this.setData({ book })
     } catch (e) {
       console.error('loadBook failed', e)
       wx.showToast({ title: '书籍不存在', icon: 'none' })
       setTimeout(() => wx.navigateBack(), 1000)
     }
+  },
+
+  onPreviewImage(e) {
+    const idx = parseInt(e.currentTarget.dataset.index, 10)
+    const urls = (this.data.book && this.data.book.images) || []
+    if (urls.length === 0) return
+    wx.previewImage({
+      current: urls[idx] || urls[0],
+      urls
+    })
   },
 
   onAdminDelete() {

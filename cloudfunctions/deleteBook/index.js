@@ -32,11 +32,15 @@ exports.main = async (event, context) => {
     return { success: false, error: '该书已被申请，无法删除' }
   }
 
-  if (book.cover && book.cover.startsWith('cloud://')) {
+  const allImages = []
+  if (Array.isArray(book.images)) allImages.push(...book.images)
+  if (book.cover && !allImages.includes(book.cover)) allImages.push(book.cover)
+  const cloudImages = allImages.filter(url => url && url.startsWith('cloud://'))
+  if (cloudImages.length > 0) {
     try {
-      await cloud.deleteFile({ fileList: [book.cover] })
+      await cloud.deleteFile({ fileList: cloudImages })
     } catch (e) {
-      console.warn('delete cover failed', e)
+      console.warn('delete book images failed', e)
     }
   }
 

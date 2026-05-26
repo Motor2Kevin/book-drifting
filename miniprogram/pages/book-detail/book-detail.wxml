@@ -2,7 +2,7 @@
   <view class="hero">
     <image class="hero-bg" src="{{book.cover}}" mode="aspectFill"></image>
     <view class="hero-mask"></view>
-    <image class="hero-cover" src="{{book.cover}}" mode="aspectFill"></image>
+    <image class="hero-cover" src="{{book.cover}}" mode="aspectFill" bindtap="onPreviewImage" data-index="0"></image>
     <view class="hero-info">
       <view class="hero-title">{{book.title}}</view>
       <view class="hero-author">{{book.author}}</view>
@@ -13,6 +13,15 @@
         </view>
       </view>
     </view>
+  </view>
+
+  <view wx:if="{{book.images.length > 1}}" class="section card">
+    <view class="section-title">📷 更多图片（{{book.images.length}} 张）</view>
+    <scroll-view scroll-x class="gallery" enable-flex>
+      <view wx:for="{{book.images}}" wx:key="*this" class="gallery-item" bindtap="onPreviewImage" data-index="{{index}}">
+        <image class="gallery-thumb" src="{{item}}" mode="aspectFill"></image>
+      </view>
+    </scroll-view>
   </view>
 
   <view class="section card">

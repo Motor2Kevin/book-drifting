@@ -80,6 +80,27 @@
   margin: 20rpx;
 }
 
+.gallery {
+  white-space: nowrap;
+  margin-top: 8rpx;
+}
+
+.gallery-item {
+  display: inline-block;
+  margin-right: 16rpx;
+}
+
+.gallery-item:last-child {
+  margin-right: 0;
+}
+
+.gallery-thumb {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 12rpx;
+  background: #faf8f3;
+}
+
 .section-title {
   font-size: 28rpx;
   font-weight: 600;

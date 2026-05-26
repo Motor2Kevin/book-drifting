@@ -1,11 +1,16 @@
 <view class="page">
   <view class="form-section card">
-    <view class="cover-uploader" bindtap="onChooseCover">
-      <image wx:if="{{form.cover}}" class="cover-preview" src="{{form.cover}}" mode="aspectFill"></image>
-      <view wx:else class="cover-placeholder">
-        <view class="cover-icon">📷</view>
-        <view class="cover-text">上传书籍封面</view>
-        <view class="cover-hint">点击拍照或选择图片</view>
+    <view class="form-label">书籍图片 <text class="hint">（最多 5 张，第一张作为封面）</text></view>
+    <view class="image-grid">
+      <view wx:for="{{form.images}}" wx:key="*this" class="image-item">
+        <image class="image-thumb" src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-index="{{index}}"></image>
+        <view class="image-delete" catchtap="onRemoveImage" data-index="{{index}}">×</view>
+        <view wx:if="{{index === 0}}" class="image-cover-badge">封面</view>
+      </view>
+      <view wx:if="{{form.images.length < 5}}" class="image-add" bindtap="onAddImages">
+        <view class="image-add-icon">+</view>
+        <view class="image-add-text">添加图片</view>
+        <view class="image-add-count">{{form.images.length}}/5</view>
       </view>
     </view>
   </view>
