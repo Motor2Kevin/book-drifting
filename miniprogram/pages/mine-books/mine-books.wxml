@@ -10,7 +10,18 @@
 
   <view class="list" wx:if="{{currentType === 'holding'}}">
     <view wx:for="{{holdingList}}" wx:key="_id" class="book-row card">
-      <image class="row-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="row-cover-wrap">
+        <image
+          wx:if="{{item.cover && !item.coverFailed}}"
+          class="row-cover"
+          src="{{item.cover}}"
+          mode="aspectFill"
+          binderror="onCoverError"
+          data-id="{{item._id}}"
+          data-type="holding"
+        ></image>
+        <view wx:else class="row-cover row-cover-placeholder">📕</view>
+      </view>
       <view class="row-info">
         <view class="row-title">{{item.title}}</view>
         <view class="row-author text-muted">{{item.author}}</view>
@@ -33,7 +44,18 @@
       📖 这里是你曾经持有、已经传给下一位读者的书
     </view>
     <view wx:for="{{readList}}" wx:key="_id" class="book-row card">
-      <image class="row-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="row-cover-wrap">
+        <image
+          wx:if="{{item.cover && !item.coverFailed}}"
+          class="row-cover"
+          src="{{item.cover}}"
+          mode="aspectFill"
+          binderror="onCoverError"
+          data-id="{{item._id}}"
+          data-type="read"
+        ></image>
+        <view wx:else class="row-cover row-cover-placeholder">📕</view>
+      </view>
       <view class="row-info">
         <view class="row-title">{{item.title}}</view>
         <view class="row-author text-muted">{{item.author}}</view>

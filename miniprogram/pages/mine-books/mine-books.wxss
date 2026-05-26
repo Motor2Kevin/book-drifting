@@ -55,12 +55,24 @@
   gap: 20rpx;
 }
 
+.row-cover-wrap {
+  flex-shrink: 0;
+}
+
 .row-cover {
   width: 120rpx;
   height: 160rpx;
   border-radius: 8rpx;
   background: #eeeae0;
-  flex-shrink: 0;
+  display: block;
+}
+
+.row-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  color: #c4c4c4;
 }
 
 .row-info {

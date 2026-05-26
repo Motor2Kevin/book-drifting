@@ -26,7 +26,16 @@
 
   <view class="book-grid">
     <view wx:for="{{filteredBooks}}" wx:key="_id" class="book-card" bindtap="onTapBook" data-id="{{item._id}}">
-      <image class="book-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="true"></image>
+      <image
+        wx:if="{{item.cover && !item.coverFailed}}"
+        class="book-cover"
+        src="{{item.cover}}"
+        mode="aspectFill"
+        lazy-load="true"
+        binderror="onCoverError"
+        data-id="{{item._id}}"
+      ></image>
+      <view wx:else class="book-cover book-cover-placeholder">📕</view>
       <view class="book-info">
         <view class="book-title">{{item.title}}</view>
         <view class="book-author">{{item.author}}</view>

@@ -41,6 +41,9 @@ Page({
         }
       })
 
+      console.log('[mine-books] holding covers:', holdingRes.data.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
+      console.log('[mine-books] read covers:', readList.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
+
       this.setData({
         holdingList: holdingRes.data,
         readList,
@@ -50,6 +53,14 @@ Page({
       console.error('mine-books load failed', e)
       this.setData({ loading: false })
     }
+  },
+
+  onCoverError(e) {
+    const { id, type } = e.currentTarget.dataset
+    console.warn('[mine-books] cover load failed', { id, type, errMsg: e.detail.errMsg })
+    const listKey = type === 'holding' ? 'holdingList' : 'readList'
+    const list = this.data[listKey].map(b => b._id === id ? { ...b, coverFailed: true } : b)
+    this.setData({ [listKey]: list })
   },
 
   formatDate(d) {

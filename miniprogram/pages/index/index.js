@@ -41,6 +41,8 @@ Page({
         statusText: b.status === 'available' ? '可漂' : '已约'
       }))
 
+      console.log('[index] books loaded:', books.map(b => ({ id: b._id, title: b.title, cover: b.cover })))
+
       this.setData({
         allBooks: books,
         loading: false
@@ -84,6 +86,14 @@ Page({
   onTapBook(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({ url: `/pages/book-detail/book-detail?id=${id}` })
+  },
+
+  onCoverError(e) {
+    const id = e.currentTarget.dataset.id
+    console.warn('[index] cover load failed', { id, errMsg: e.detail.errMsg })
+    const list = this.data.allBooks.map(b => b._id === id ? { ...b, coverFailed: true } : b)
+    this.setData({ allBooks: list })
+    this.applyFilters()
   },
 
   async onTapPublish() {
