@@ -40,7 +40,7 @@
 
 ## Step 3：上传并部署 5 个云函数
 
-回到开发者工具 → 左侧文件树展开 `cloudfunctions/` → 你会看到 9 个文件夹：
+回到开发者工具 → 左侧文件树展开 `cloudfunctions/` → 你会看到 10 个文件夹：
 
 ```
 cloudfunctions/
@@ -49,10 +49,11 @@ cloudfunctions/
 ├── updateBook/
 ├── deleteBook/
 ├── reserveBook/
+├── cancelReserve/     ← 取消预约
 ├── confirmHandover/
 ├── releaseExpired/
-├── getBooks/          ← 新增 (免费版绕过)
-└── getImageUrls/      ← 新增 (免费版绕过)
+├── getBooks/          ← 免费版绕过
+└── getImageUrls/      ← 免费版绕过
 ```
 
 **对每一个**云函数执行：

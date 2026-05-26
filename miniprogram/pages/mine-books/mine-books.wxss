@@ -129,6 +129,12 @@
   letter-spacing: 2rpx;
 }
 
+.btn-cancel-sm {
+  background: #ffffff !important;
+  color: #999 !important;
+  border: 2rpx solid #ddd !important;
+}
+
 .row-status {
   margin-top: 8rpx;
   display: inline-block;

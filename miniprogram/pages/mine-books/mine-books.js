@@ -1,11 +1,15 @@
 const app = getApp()
 const { resolveCovers } = require('../../utils/cover.js')
 
+const ONE_HOUR = 1000 * 60 * 60
+const RESERVE_TTL = 24 * ONE_HOUR
+
 Page({
   data: {
     currentType: 'holding',
     holdingList: [],
     readList: [],
+    reservedList: [],
     loading: true
   },
 
@@ -27,13 +31,15 @@ Page({
     this.setData({ loading: true })
 
     try {
-      const [holdingRes, passedRes] = await Promise.all([
+      const [holdingRes, passedRes, reservedRes] = await Promise.all([
         wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myHolding' } }),
-        wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myPassed' } })
+        wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myPassed' } }),
+        wx.cloud.callFunction({ name: 'getBooks', data: { action: 'myReserved' } })
       ])
 
       const holdingBooks = (holdingRes.result && holdingRes.result.books) || []
       const passedBooks = (passedRes.result && passedRes.result.books) || []
+      const reservedBooks = (reservedRes.result && reservedRes.result.books) || []
 
       const readListRaw = passedBooks.map(b => {
         const myHistory = (b.history || []).find(h => h.fromId === openid)
@@ -44,14 +50,21 @@ Page({
         }
       })
 
-      const [holdingList, readList] = await Promise.all([
+      const reservedListRaw = reservedBooks.map(b => ({
+        ...b,
+        timeLeft: this.formatTimeLeft(b.reservedAt)
+      }))
+
+      const [holdingList, readList, reservedList] = await Promise.all([
         resolveCovers(holdingBooks),
-        resolveCovers(readListRaw)
+        resolveCovers(readListRaw),
+        resolveCovers(reservedListRaw)
       ])
 
       this.setData({
         holdingList,
         readList,
+        reservedList,
         loading: false
       })
     } catch (e) {
@@ -60,22 +73,83 @@ Page({
     }
   },
 
-  onCoverError(e) {
-    const { id, type } = e.currentTarget.dataset
-    console.warn('[mine-books] cover load failed', { id, type, errMsg: e.detail.errMsg })
-    const listKey = type === 'holding' ? 'holdingList' : 'readList'
-    const list = this.data[listKey].map(b => b._id === id ? { ...b, coverFailed: true } : b)
-    this.setData({ [listKey]: list })
-  },
-
   formatDate(d) {
     if (!d) return ''
     const date = new Date(d)
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
   },
 
+  formatTimeLeft(reservedAt) {
+    if (!reservedAt) return '已锁定'
+    const start = new Date(reservedAt).getTime()
+    const expiresAt = start + RESERVE_TTL
+    const remain = expiresAt - Date.now()
+    if (remain <= 0) return '即将释放'
+    const hours = Math.floor(remain / ONE_HOUR)
+    if (hours <= 0) {
+      const minutes = Math.max(1, Math.floor(remain / 60000))
+      return `还剩 ${minutes} 分钟`
+    }
+    return `还剩 ${hours} 小时`
+  },
+
   onSwitchTab(e) {
     this.setData({ currentType: e.currentTarget.dataset.type })
+  },
+
+  onTapBook(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: `/pages/book-detail/book-detail?id=${id}` })
+  },
+
+  onCoverError(e) {
+    const { id, type } = e.currentTarget.dataset
+    const listKey = type === 'holding' ? 'holdingList' : (type === 'reserved' ? 'reservedList' : 'readList')
+    const list = this.data[listKey].map(b => b._id === id ? { ...b, coverFailed: true } : b)
+    this.setData({ [listKey]: list })
+  },
+
+  onCopyOwnerWechat(e) {
+    const wechat = e.currentTarget.dataset.wechat
+    if (!wechat) {
+      wx.showToast({ title: '未找到微信号', icon: 'none' })
+      return
+    }
+    wx.setClipboardData({
+      data: wechat,
+      success: () => wx.showToast({ title: '已复制', icon: 'success' })
+    })
+  },
+
+  onCancelReserve(e) {
+    const id = e.currentTarget.dataset.id
+    wx.showModal({
+      title: '取消预约',
+      content: '取消后这本书会重新开放给其他人预约。确定吗？',
+      confirmText: '取消预约',
+      confirmColor: '#d96666',
+      success: async (res) => {
+        if (!res.confirm) return
+        wx.showLoading({ title: '处理中...', mask: true })
+        try {
+          const cloudRes = await wx.cloud.callFunction({
+            name: 'cancelReserve',
+            data: { bookId: id }
+          })
+          wx.hideLoading()
+          if (!cloudRes.result.success) {
+            wx.showToast({ title: cloudRes.result.error || '取消失败', icon: 'none' })
+            return
+          }
+          wx.showToast({ title: '已取消预约', icon: 'success' })
+          this.loadAll()
+        } catch (err) {
+          wx.hideLoading()
+          console.error('cancelReserve failed', err)
+          wx.showToast({ title: '取消失败', icon: 'none' })
+        }
+      }
+    })
   },
 
   onShowActions(e) {

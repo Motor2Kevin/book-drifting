@@ -39,16 +39,26 @@ exports.main = async (event, context) => {
       return { success: true, books: res.data }
     }
 
+    if (action === 'myReserved') {
+      const res = await db.collection('books')
+        .where({ reservedBy: openid, status: 'reserved' })
+        .orderBy('reservedAt', 'desc')
+        .get()
+      return { success: true, books: res.data }
+    }
+
     if (action === 'stats') {
-      const [holdingRes, passedRes] = await Promise.all([
+      const [holdingRes, passedRes, reservedRes] = await Promise.all([
         db.collection('books').where({ ownerId: openid }).count(),
-        db.collection('books').where({ 'history.fromId': openid }).count()
+        db.collection('books').where({ 'history.fromId': openid }).count(),
+        db.collection('books').where({ reservedBy: openid, status: 'reserved' }).count()
       ])
       return {
         success: true,
         stats: {
           holding: holdingRes.total || 0,
-          passed: passedRes.total || 0
+          passed: passedRes.total || 0,
+          reserved: reservedRes.total || 0
         }
       }
     }

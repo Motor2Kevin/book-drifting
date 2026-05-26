@@ -53,12 +53,24 @@
     </view>
   </view>
 
+  <view wx:if="{{isReservedByMe}}" class="my-reserve-tip">
+    ✅ 你已预约这本书<block wx:if="{{book.ownerWechat}}">，请加 {{book.ownerName}} 微信沟通交接</block>
+  </view>
+
   <view class="bottom-bar">
-    <button
-      class="btn-primary"
-      bindtap="onWantBook"
-      disabled="{{book.status !== 'available'}}"
-    >{{book.status === 'available' ? '我想要这本书' : '已被他人预约'}}</button>
+    <block wx:if="{{isOwner}}">
+      <button class="btn-primary" disabled>这是你发布的书</button>
+    </block>
+    <block wx:elif="{{book.status === 'available'}}">
+      <button class="btn-primary" bindtap="onWantBook">我想要这本书</button>
+    </block>
+    <block wx:elif="{{isReservedByMe}}">
+      <button class="btn-primary btn-copy" bindtap="onCopyOwnerWechat">复制持有人微信</button>
+      <button class="btn-cancel" bindtap="onCancelReserve">取消预约</button>
+    </block>
+    <block wx:else>
+      <button class="btn-primary" disabled>已被他人预约</button>
+    </block>
     <button
       wx:if="{{showAdminDelete}}"
       class="btn-admin-delete"

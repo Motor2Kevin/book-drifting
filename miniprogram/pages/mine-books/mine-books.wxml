@@ -3,6 +3,9 @@
     <view class="tab-item {{currentType === 'holding' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="holding">
       持有中 ({{holdingList.length}})
     </view>
+    <view class="tab-item {{currentType === 'reserved' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="reserved">
+      已预约 ({{reservedList.length}})
+    </view>
     <view class="tab-item {{currentType === 'read' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="read">
       已传递 ({{readList.length}})
     </view>
@@ -36,6 +39,39 @@
     <view wx:if="{{holdingList.length === 0}}" class="empty">
       <view class="empty-text">还没有持有中的书</view>
       <view class="empty-hint">去书架看看吧</view>
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{currentType === 'reserved'}}">
+    <view class="section-tip">
+      ⏳ 你已预约但还没交接完成的书，24 小时内未取走会自动释放
+    </view>
+    <view wx:for="{{reservedList}}" wx:key="_id" class="book-row card" bindtap="onTapBook" data-id="{{item._id}}">
+      <view class="row-cover-wrap">
+        <image
+          wx:if="{{item.cover && !item.coverFailed}}"
+          class="row-cover"
+          src="{{item.cover}}"
+          mode="aspectFill"
+          binderror="onCoverError"
+          data-id="{{item._id}}"
+          data-type="reserved"
+        ></image>
+        <view wx:else class="row-cover row-cover-placeholder">📕</view>
+      </view>
+      <view class="row-info">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-author text-muted">{{item.author}}</view>
+        <view class="row-history text-muted">持有人 {{item.ownerName}} · {{item.timeLeft}}</view>
+      </view>
+      <view class="row-actions">
+        <button class="row-action-btn btn-secondary" size="mini" catchtap="onCopyOwnerWechat" data-wechat="{{item.ownerWechat}}">复制微信</button>
+        <button class="row-action-btn btn-cancel-sm" size="mini" catchtap="onCancelReserve" data-id="{{item._id}}">取消</button>
+      </view>
+    </view>
+    <view wx:if="{{reservedList.length === 0}}" class="empty">
+      <view class="empty-text">还没预约任何书</view>
+      <view class="empty-hint">去书架找一本喜欢的吧</view>
     </view>
   </view>
 

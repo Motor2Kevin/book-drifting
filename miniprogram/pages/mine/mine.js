@@ -6,7 +6,8 @@ Page({
     defaultAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
     stats: {
       holding: 0,
-      read: 0
+      read: 0,
+      reserved: 0
     }
   },
 
@@ -39,7 +40,8 @@ Page({
         this.setData({
           stats: {
             holding: res.result.stats.holding || 0,
-            read: res.result.stats.passed || 0
+            read: res.result.stats.passed || 0,
+            reserved: res.result.stats.reserved || 0
           }
         })
       }
@@ -50,6 +52,10 @@ Page({
 
   onTapHolding() {
     wx.navigateTo({ url: '/pages/mine-books/mine-books?type=holding' })
+  },
+
+  onTapReserved() {
+    wx.navigateTo({ url: '/pages/mine-books/mine-books?type=reserved' })
   },
 
   onTapRead() {

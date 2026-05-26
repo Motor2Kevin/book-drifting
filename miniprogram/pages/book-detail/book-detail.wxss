@@ -203,6 +203,32 @@
   font-size: 28rpx;
 }
 
+.btn-cancel {
+  margin-top: 12rpx;
+  background: #ffffff;
+  color: #999;
+  border: 2rpx solid #ddd;
+  border-radius: 48rpx;
+  padding: 20rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.my-reserve-tip {
+  position: fixed;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: calc(220rpx + env(safe-area-inset-bottom));
+  background: #e8f3e8;
+  color: #4a8c4a;
+  padding: 20rpx 24rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  z-index: 50;
+}
+
 .loading {
   text-align: center;
   padding: 200rpx 0;
