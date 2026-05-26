@@ -8,8 +8,7 @@ Page({
     defaultAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
     stats: {
       holding: 0,
-      read: 0,
-      passed: 0
+      read: 0
     }
   },
 
@@ -31,16 +30,15 @@ Page({
     if (!openid) return
 
     try {
-      const holdingRes = await db.collection('books').where({ ownerId: openid }).count()
-      const passedRes = await db.collection('books').where({
-        'history.fromId': openid
-      }).count()
+      const [holdingRes, readRes] = await Promise.all([
+        db.collection('books').where({ ownerId: openid }).count(),
+        db.collection('books').where({ 'history.fromId': openid }).count()
+      ])
 
       this.setData({
         stats: {
           holding: holdingRes.total || 0,
-          passed: passedRes.total || 0,
-          read: passedRes.total || 0
+          read: readRes.total || 0
         }
       })
     } catch (e) {

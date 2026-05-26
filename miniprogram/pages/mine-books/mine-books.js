@@ -36,8 +36,8 @@ Page({
         const myHistory = (b.history || []).find(h => h.fromId === openid)
         return {
           ...b,
-          receivedFrom: myHistory ? myHistory.fromName : '',
-          receivedAt: myHistory ? this.formatDate(myHistory.handedAt) : ''
+          passedTo: myHistory ? myHistory.toName : '',
+          passedAt: myHistory ? this.formatDate(myHistory.handedAt) : ''
         }
       })
 

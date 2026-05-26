@@ -91,10 +91,20 @@
   margin-right: 20rpx;
 }
 
+.menu-text-wrap {
+  flex: 1;
+}
+
 .menu-text {
   flex: 1;
   font-size: 30rpx;
   color: #2c2825;
+}
+
+.menu-subtitle {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #999;
 }
 
 .menu-arrow {

@@ -38,6 +38,16 @@
   padding: 20rpx;
 }
 
+.section-tip {
+  padding: 16rpx 20rpx;
+  margin-bottom: 20rpx;
+  background: #fdf6e0;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #8b7d4a;
+  line-height: 1.6;
+}
+
 .book-row {
   display: flex;
   padding: 20rpx;

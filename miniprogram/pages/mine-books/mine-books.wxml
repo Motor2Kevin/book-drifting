@@ -4,7 +4,7 @@
       持有中 ({{holdingList.length}})
     </view>
     <view class="tab-item {{currentType === 'read' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="read">
-      已读过 ({{readList.length}})
+      读过 ({{readList.length}})
     </view>
   </view>
 
@@ -25,16 +25,20 @@
   </view>
 
   <view class="list" wx:if="{{currentType === 'read'}}">
+    <view class="section-tip">
+      📖 这里是你曾经持有、已经传给下一位读者的书
+    </view>
     <view wx:for="{{readList}}" wx:key="_id" class="book-row card">
       <image class="row-cover" src="{{item.cover}}" mode="aspectFill"></image>
       <view class="row-info">
         <view class="row-title">{{item.title}}</view>
         <view class="row-author text-muted">{{item.author}}</view>
-        <view class="row-history text-muted">来自 {{item.receivedFrom}} · {{item.receivedAt}}</view>
+        <view class="row-history text-muted">传给 {{item.passedTo}} · {{item.passedAt}}</view>
       </view>
     </view>
     <view wx:if="{{readList.length === 0}}" class="empty">
-      <view class="empty-text">还没有读过的书</view>
+      <view class="empty-text">还没有传出去的书</view>
+      <view class="empty-hint">把手里的书传给下一位读者后会出现在这里</view>
     </view>
   </view>
 </view>
