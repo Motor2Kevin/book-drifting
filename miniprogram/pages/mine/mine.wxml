@@ -28,7 +28,7 @@
     </view>
     <view class="menu-item" bindtap="onTapRead">
       <view class="menu-icon">📚</view>
-      <view class="menu-text">我读过的书</view>
+      <view class="menu-text">我传递的书</view>
       <view class="menu-arrow">›</view>
     </view>
     <view class="menu-item" bindtap="onTapProfile">
