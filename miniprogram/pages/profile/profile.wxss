@@ -55,6 +55,15 @@
   color: #ccc;
 }
 
+.city-display {
+  font-size: 28rpx;
+  color: #2c2825;
+}
+
+.city-placeholder {
+  color: #c4c4c4;
+}
+
 .divider {
   height: 1rpx;
   background: #f5f3ee;

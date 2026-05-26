@@ -32,17 +32,22 @@
       />
     </view>
     <view class="divider"></view>
-    <view class="form-item">
-      <view class="form-label">所在城市</view>
-      <input
-        class="form-input form-input-right"
-        placeholder="例如：北京"
-        value="{{form.city}}"
-        bindinput="onInput"
-        data-field="city"
-        maxlength="10"
-      />
-    </view>
+    <picker
+      mode="selector"
+      range="{{cityOptions}}"
+      value="{{cityIndex}}"
+      bindchange="onCityChange"
+    >
+      <view class="form-item">
+        <view class="form-label">所在城市</view>
+        <view class="form-right">
+          <view class="form-input-right city-display {{form.city ? '' : 'city-placeholder'}}">
+            {{form.city || '请选择城市'}}
+          </view>
+          <view class="arrow">›</view>
+        </view>
+      </view>
+    </picker>
   </view>
 
   <view class="tip-box">

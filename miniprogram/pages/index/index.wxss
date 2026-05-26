@@ -5,26 +5,37 @@
 
 .filter-bar {
   display: flex;
+  align-items: center;
   padding: 20rpx 24rpx;
   background: #ffffff;
   border-bottom: 1rpx solid #eeeae0;
-  overflow-x: auto;
-  white-space: nowrap;
 }
 
-.filter-item {
-  display: inline-block;
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
   padding: 12rpx 28rpx;
-  margin-right: 16rpx;
   background: #f5f3ee;
   border-radius: 32rpx;
   font-size: 26rpx;
-  color: #666;
+  color: #4a443e;
 }
 
-.filter-item.active {
+.filter-pill.active {
   background: #8b6f47;
   color: #ffffff;
+}
+
+.filter-arrow {
+  margin-left: 8rpx;
+  font-size: 20rpx;
+}
+
+.filter-clear {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  color: #999;
+  padding: 12rpx 16rpx;
 }
 
 .book-grid {

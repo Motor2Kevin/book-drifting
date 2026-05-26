@@ -1,11 +1,14 @@
 const app = getApp()
 const db = wx.cloud.database()
+const { CITIES_WITH_ALL } = require('../../utils/cities.js')
 
 Page({
   data: {
     allBooks: [],
     filteredBooks: [],
-    currentCity: 'all',
+    currentCity: '全部',
+    cityOptions: CITIES_WITH_ALL,
+    cityIndex: 0,
     loading: true
   },
 
@@ -14,6 +17,9 @@ Page({
   },
 
   onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 })
+    }
     this.loadBooks()
   },
 
@@ -46,14 +52,20 @@ Page({
     }
   },
 
-  onSelectCity(e) {
-    const city = e.currentTarget.dataset.city
-    this.setData({ currentCity: city })
+  onCityChange(e) {
+    const idx = parseInt(e.detail.value, 10)
+    const city = CITIES_WITH_ALL[idx]
+    this.setData({ currentCity: city, cityIndex: idx })
     this.filterByCity(city)
   },
 
+  onClearFilter() {
+    this.setData({ currentCity: '全部', cityIndex: 0 })
+    this.filterByCity('全部')
+  },
+
   filterByCity(city) {
-    const list = city === 'all'
+    const list = city === '全部'
       ? this.data.allBooks
       : this.data.allBooks.filter(b => b.city === city)
     this.setData({ filteredBooks: list })

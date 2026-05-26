@@ -16,7 +16,7 @@
     <view class="stat-divider"></view>
     <view class="stat-item" bindtap="onTapRead">
       <view class="stat-num">{{stats.read}}</view>
-      <view class="stat-label">读过</view>
+      <view class="stat-label">已传递</view>
     </view>
   </view>
 

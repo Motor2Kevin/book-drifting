@@ -4,7 +4,7 @@
       持有中 ({{holdingList.length}})
     </view>
     <view class="tab-item {{currentType === 'read' ? 'active' : ''}}" bindtap="onSwitchTab" data-type="read">
-      读过 ({{readList.length}})
+      已传递 ({{readList.length}})
     </view>
   </view>
 

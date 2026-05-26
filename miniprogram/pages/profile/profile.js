@@ -1,5 +1,6 @@
 const app = getApp()
 const db = wx.cloud.database()
+const { CITIES } = require('../../utils/cities.js')
 
 Page({
   data: {
@@ -10,21 +11,33 @@ Page({
       wechatId: '',
       city: ''
     },
+    cityOptions: CITIES,
+    cityIndex: -1,
     defaultAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default',
     saving: false
+  },
+
+  onCityChange(e) {
+    const idx = parseInt(e.detail.value, 10)
+    this.setData({
+      cityIndex: idx,
+      'form.city': CITIES[idx]
+    })
   },
 
   async onLoad() {
     if (app.loginPromise) await app.loginPromise
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {}
+    const city = userInfo.city || ''
     this.setData({
       form: {
         avatar: userInfo.avatar || '',
         avatarFileID: userInfo.avatarFileID || '',
         nickname: userInfo.nickname === '匿名书友' ? '' : (userInfo.nickname || ''),
         wechatId: userInfo.wechatId || '',
-        city: userInfo.city || ''
-      }
+        city
+      },
+      cityIndex: city ? CITIES.indexOf(city) : -1
     })
   },
 
