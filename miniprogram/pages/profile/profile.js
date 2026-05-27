@@ -1,5 +1,4 @@
 const app = getApp()
-const db = wx.cloud.database()
 const { CITIES } = require('../../utils/cities.js')
 const { isAdmin } = require('../../utils/admin.js')
 const { resolveSingleUrl } = require('../../utils/cover.js')
@@ -100,21 +99,30 @@ Page({
         avatarFileID = uploadRes.fileID
       }
 
-      const openid = app.globalData.openid || wx.getStorageSync('openid')
-      const updates = {
-        nickname: nickname.trim(),
-        wechatId: wechatId.trim(),
-        city: city.trim(),
-        avatar: avatarFileID || avatar,
-        avatarFileID: avatarFileID,
-        updatedAt: db.serverDate()
-      }
+      const finalAvatar = avatarFileID || avatar
 
-      await db.collection('users').where({ _openid: openid }).update({
-        data: updates
+      const res = await wx.cloud.callFunction({
+        name: 'updateProfile',
+        data: {
+          nickname: nickname.trim(),
+          wechatId: wechatId.trim(),
+          city: city.trim(),
+          avatar: finalAvatar
+        }
       })
 
-      const newUserInfo = { ...app.globalData.userInfo, ...updates, _openid: openid }
+      if (!res.result || !res.result.success) {
+        wx.hideLoading()
+        this.setData({ saving: false })
+        wx.showToast({ title: (res.result && res.result.error) || '保存失败', icon: 'none' })
+        return
+      }
+
+      const newUserInfo = {
+        ...app.globalData.userInfo,
+        ...res.result.user,
+        avatarFileID: avatarFileID || ''
+      }
       app.globalData.userInfo = newUserInfo
       wx.setStorageSync('userInfo', newUserInfo)
 

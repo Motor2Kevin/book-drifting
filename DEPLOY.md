@@ -40,7 +40,7 @@
 
 ## Step 3：上传并部署 5 个云函数
 
-回到开发者工具 → 左侧文件树展开 `cloudfunctions/` → 你会看到 10 个文件夹：
+回到开发者工具 → 左侧文件树展开 `cloudfunctions/` → 你会看到 11 个文件夹：
 
 ```
 cloudfunctions/
@@ -49,12 +49,29 @@ cloudfunctions/
 ├── updateBook/
 ├── deleteBook/
 ├── reserveBook/
-├── cancelReserve/     ← 取消预约
+├── cancelReserve/
 ├── confirmHandover/
 ├── releaseExpired/
-├── getBooks/          ← 免费版绕过
-└── getImageUrls/      ← 免费版绕过
+├── getBooks/
+├── getImageUrls/
+└── updateProfile/     ← 安全加固
 ```
+
+---
+
+## 重要：deleteBook 的环境变量配置（管理员白名单）
+
+`deleteBook` 云函数判定管理员的 openid **从环境变量读取**，不再硬编码到代码里。
+首次部署后需要在云开发控制台配置：
+
+1. 云开发控制台 → 云函数 → **`deleteBook`** → **「环境变量」** Tab
+2. 添加新环境变量：
+   - **Key**：`ADMIN_OPENIDS`
+   - **Value**：`ofG6k6wGgggp1udLpAlJPeQK8od4`（多个管理员用英文逗号分隔）
+3. 保存
+4. 重新部署 `deleteBook` 让环境变量生效
+
+`releaseExpired` 同样支持 `ADMIN_OPENIDS` 环境变量（可选，仅当管理员需要手动触发定时任务时配置）。
 
 **对每一个**云函数执行：
 

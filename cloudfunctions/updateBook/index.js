@@ -3,12 +3,28 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
 const MAX_IMAGES = 5
+const LIMITS = {
+  title: 50,
+  author: 30,
+  message: 200,
+  city: 10
+}
+
+function sanitize(value, max) {
+  if (typeof value !== 'string') return ''
+  return value.trim().slice(0, max)
+}
 
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const openid = wxContext.OPENID
 
-  const { bookId, title, author, cover, images, message, city } = event
+  const { bookId, cover, images } = event
+  const title = sanitize(event.title, LIMITS.title)
+  const author = sanitize(event.author, LIMITS.author)
+  const message = sanitize(event.message, LIMITS.message)
+  const city = event.city !== undefined ? sanitize(event.city, LIMITS.city) : undefined
+
   if (!bookId) return { success: false, error: '缺少 bookId' }
   if (!title || !author || !message) {
     return { success: false, error: '书名、作者、留言都必填' }
@@ -35,12 +51,15 @@ exports.main = async (event, context) => {
   }
 
   if (Array.isArray(images)) {
-    const finalImages = images.filter(Boolean).slice(0, MAX_IMAGES)
+    const finalImages = images
+      .filter(u => typeof u === 'string' && u.startsWith('cloud://'))
+      .slice(0, MAX_IMAGES)
     updates.images = finalImages
     updates.cover = finalImages[0] || ''
   } else if (cover !== undefined) {
-    updates.cover = cover
-    updates.images = cover ? [cover] : []
+    const validCover = typeof cover === 'string' && cover.startsWith('cloud://') ? cover : ''
+    updates.cover = validCover
+    updates.images = validCover ? [validCover] : []
   }
   if (city !== undefined) updates.city = city
 

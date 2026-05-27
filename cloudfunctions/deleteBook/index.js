@@ -2,11 +2,10 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-// ⚠️ 管理员 openid 白名单。管理员可以删除任何用户发布的书（用于处理违禁内容）。
-// 在小程序「我的 → 个人设置」底部能看到自己的 openid，复制后填到这里。
-const ADMIN_OPENIDS = [
-  'ofG6k6wGgggp1udLpAlJPeQK8od4'
-]
+// 管理员 openid 白名单。从云函数环境变量 ADMIN_OPENIDS 读取（逗号分隔）。
+// 配置位置：云开发控制台 → 云函数 → deleteBook → 环境变量 → ADMIN_OPENIDS
+// 这样硬编码不会进入公开 git 仓库，且不同环境可配不同管理员。
+const ADMIN_OPENIDS = (process.env.ADMIN_OPENIDS || '').split(',').map(s => s.trim()).filter(Boolean)
 
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
